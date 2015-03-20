@@ -32,3 +32,10 @@ sumPairs x y
  | x == [] = y
  | y == [] = x
  | otherwise = (head x) + (head y) : sumPairs (tail x) (tail y) 
+ 
+ {--}
+ 
+quickSort :: [Int] -> [Int]
+quickSort [] = []
+quickSort (h : t) =
+ quickSort [y | y <- t, y < h] ++ [h] ++ quickSort[y | y <- t, y >= h]
