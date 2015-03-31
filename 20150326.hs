@@ -52,3 +52,34 @@ comparaConjuntos a b
  | contem a b = "B contem A"
  | intersec a b = "A interseciona B"
  | otherwise = "Conjuntos disjuntos"
+
+ {- exercicios aula-}
+
+taKe :: [l] -> Int -> [l]
+taKe [] _ = []
+taKe (h:t) n
+ | n == 1 = [h]
+ | otherwise = [h] ++ taKe t (n-1)
+
+droP :: [l] -> Int -> [l]
+droP [] _ = []
+droP (h:t) n
+ | n == 1 = t
+ | otherwise = droP t (n-1)
+
+taKeWhile :: (l -> Bool) -> [l] -> [l]
+taKeWhile _ [] = []
+taKeWhile f (h:t)
+  | f h = [h] ++ taKeWhile f t
+  | otherwise = taKeWhile f t
+
+droPWhile :: (l -> Bool) -> [l] -> [l]
+droPWhile _ [] = []
+droPWhile f (h:t)
+ | f h = droPWhile f t
+ | otherwise = [h] ++ droPWhile f t
+
+sorT :: Ord l => [l] -> [l]
+sorT [] = []
+sorT (h:t) =
+	sorT [y|y<-t, h>y] ++ [h] ++ sorT [y|y<-t, h<=y]
