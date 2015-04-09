@@ -37,25 +37,50 @@ adjacentes (Grafo ((x,y):as)) vertice
     | x == vertice = pegaVertices y
     | otherwise = adjacentes (Grafo as) vertice
 
-visitado :: (Eq t) => [(t,Bool)] -> t -> Bool -- retorna o estado de "visitado" de um vértice usando a lista de vertices como entrada
+visitado :: (Eq t) => [(t,Bool)] -> t -> Bool -- retorna o estado de "visitado" de um vÃ©rtice usando a lista de vertices como entrada
 visitado [] vertice = False
 visitado ((x,y):as) vertice
     | x == vertice = y
     | otherwise = visitado as vertice
 
-proximoAdjacente :: (Eq t) => [t] -> [(t,Bool)] -> [t] -- retorna o proximo vertice adjacente não visitado, entradas: listas de adjacentes e de vertices
+proximoAdjacente :: (Eq t) => [t] -> [(t,Bool)] -> [t] -- retorna o proximo vertice adjacente nÃ£o visitado, entradas: listas de adjacentes e de vertices
 proximoAdjacente [] vertices = []
 proximoAdjacente (a:as) vertices
     | visitado vertices a == True = proximoAdjacente as vertices
     | otherwise = [a]
 
 busca :: (Eq t) => Grafos t -> [(t,Bool)] -> [t] -> t -> t -> Bool -- funcao de busca em profundidade
-busca (Grafo grafo) vertices [] inicio fim = False -- caso base de a pilha estar vazia (terem acabado os vertices adjacentes não visitados)
+busca (Grafo grafo) vertices [] inicio fim = False -- caso base de a pilha estar vazia (terem acabado os vertices adjacentes nÃ£o visitados)
 busca (Grafo grafo) vertices pilha inicio fim
-    | (proximoAdjacente (adjacentes (Grafo grafo) inicio) vertices) == [] = busca (Grafo grafo) vertices (tail pilha) inicio fim -- não há adjacente válido, volta a pilha
+    | (proximoAdjacente (adjacentes (Grafo grafo) inicio) vertices) == [] = busca (Grafo grafo) vertices (tail pilha) inicio fim -- nÃ£o hÃ¡ adjacente vÃ¡lido, volta a pilha
     | head (proximoAdjacente (adjacentes (Grafo grafo) inicio) vertices) == fim = True -- chegou no vertice pretendido, retorna o caminho
     | otherwise = busca (Grafo grafo) (marcaVertices vertices inicio True) ((proximoAdjacente (adjacentes (Grafo grafo) inicio) vertices)++pilha) (head (proximoAdjacente (adjacentes (Grafo grafo) inicio) vertices)) fim 
     -- marca o proximo vertice adjacente como visitado, o coloca na pilha e o considera como inicio
 
-search :: (Eq t) => Grafos t -> t -> t -> Bool -- funcao inicial que marca vertices como não lidos, define o incial como visitado e o coloca na fila
+search :: (Eq t) => Grafos t -> t -> t -> Bool -- funcao inicial que marca vertices como nÃ£o lidos, define o incial como visitado e o coloca na fila
 search (Grafo grafo) inicio fim = busca (Grafo grafo) (marcaVertices (listaVertices (Grafo grafo)) inicio True) [inicio] inicio fim
+
+------------exercicios aula---------------------
+
+import Data.Char (ord)
+
+sqt :: [Float] -> [Float]
+sqt a = map sqrt a
+
+posicaoAlfabeto :: String -> [Int]
+posicaoAlfabeto a = map abs (map ((-) 96) (map ord a))
+
+mapSemComp :: (a->b) -> [a] -> [b]
+mapSemComp f a = [f x | x <- a]
+
+member :: (Eq t) => [t] -> t -> Bool
+member l e = foldr (||) False (map ((==) e) l)
+
+aux :: (Eq t) => [t] -> [t] -> [t]
+aux a b = [x | x<-b, not (member a x)]
+
+union :: (Eq t) => [t] -> [t] -> [t]
+union a b = foldr (++) [] ([a]++[(aux a b)])
+
+transNumAux :: String -> Int
+transNum :: [String] -> [Int]
