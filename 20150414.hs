@@ -69,3 +69,26 @@ filterTree :: Eq t => (t -> Bool) -> Tree t -> [Tree t]
 filterTree _ NilT = []
 filterTree f a = arv : (filtrandoLista f (arv, floresta))
  where (arv, floresta) = filtro f a
+ 
+ 
+ ------------ Questões Aula ----------
+ 
+f :: [[Int]] -> Int -> [[Int]] 
+f l n = filter pred l
+ where pred n =  ((foldr (+) 0 n)  >= n)
+
+f2 :: [[Int]] -> Int -> [[Int]] 
+f2 l n  = filter (\x -> ((foldr  (+) 0 x) >= n)) l
+
+f3 :: [[Int]] -> Int -> [[Int]] 
+f3 l n = filter (>= n).(foldr (+) 0) l
+
+inter :: (Eq t) => [t] -> [t] -> [t]
+inter [] l2 = []
+inter (a:as) l2 = (filter (== a) l2) ++ (inter as l2)
+
+diff :: (Eq t) => [t] -> [t] -> [t]
+diff [] l2 = []
+diff (a:as) l2
+  | (filter ( == a) l2) == []) = a : (diff as l2)
+  | otherwise = diff as l2
