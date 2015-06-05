@@ -1,10 +1,10 @@
-ìAlÈm do interpretador, a equipe deve construir pelo menos dez
+‚ÄúAl√©m do interpretador, a equipe deve construir pelo menos dez
 programas corretos e que testem todas as funcionalidades implementadas
-pelo interpretador. Esses testes devem incluir situaÁıes onde v·rias
-funcionalidades s„o combinadas. Os programas desenvolvidos devem estar
-disponÌveis no momento da apresentaÁ„o do projeto.
+pelo interpretador. Esses testes devem incluir situa√ß√µes onde v√°rias
+funcionalidades s√£o combinadas. Os programas desenvolvidos devem estar
+dispon√≠veis no momento da apresenta√ß√£o do projeto.
 Pelo menos um desses programas deve implementar o algoritmo Quicksort
-recursivamente e pelo menos dois devem usar clausuras lÈxicasî
+recursivamente e pelo menos dois devem usar clausuras l√©xicas‚Äù
 
 1. Fibonacci
 
@@ -25,7 +25,7 @@ recursivamente e pelo menos dois devem usar clausuras lÈxicasî
 
 runhaskell SSInterpreter.hs "(begin (define n 0) (comment funcao fibonacci com variaveis locais e globais) (define fib (lambda (n) (if (eqv? n 0) 0 (if (eqv? n 1) 1 (+ (fib (- n 1)) (fib (- n 2))))))) (fib 4) )"
 
-1.3 SaÌda:
+1.3 Sa√≠da:
 
 3
 [("fib",lambda ((n) (if (eqv? n 0) 0 (if (eqv? n 1) 1 (+ (fib (- n 1)) (fib (- n
@@ -33,7 +33,7 @@ runhaskell SSInterpreter.hs "(begin (define n 0) (comment funcao fibonacci com v
 
 
 
-2. DivisÌvel por 6
+2. Divis√≠vel por 6
 
 2.1 Estrutura:
 
@@ -71,7 +71,7 @@ runhaskell SSInterpreter.hs "(begin (define n 0) (comment funcao fibonacci com v
 
 runhaskell SSInterpreter.hs "(begin (let ((a 1)) (define divisivel2 (make-closure (lambda (x) (begin (set! a (mod x 2))) ) ) ) ) (let ((b 1)) (define divisivel3 (make-closure (lambda (y) (begin (set! b (mod y 3))) ) ) ) ) (define divisivel6 (lambda (z) (if ( eqv? (divisivel2 z) 0 ) (if ( eqv? (divisivel3 z) 0 ) #t #f ) #f) ) ) (comment caso teste) (divisivel6 24) )"
 
-2.3 SaÌda:
+2.3 Sa√≠da:
 
 #t
 [("*",<native procedure>),("+",<native procedure>),("-",<native procedure>),("/"
@@ -99,11 +99,11 @@ mbda ((z) (if (eqv? (divisivel2 z) 0) (if (eqv? (divisivel3 z) 0) #t #f) #f))),(
 "eqv?",<native procedure>),("list?",<native procedure>),("lt?",<native procedure
 >),("mod",<native procedure>),("number?",<native procedure>),("z",24)]
  
- Obs.: substituindo 24 por 23, por exemplo, a saÌda retorna #f.
+ Obs.: substituindo 24 por 23, por exemplo, a sa√≠da retorna #f.
 
 
 
-3. Inclui n˙mero maior que 5 em uma lista
+3. Inclui n√∫mero maior que 5 em uma lista
 
 3.1 Estrutura:
 
@@ -120,11 +120,11 @@ mbda ((z) (if (eqv? (divisivel2 z) 0) (if (eqv? (divisivel3 z) 0) #t #f) #f))),(
 
 runhaskell SSInterpreter.hs "(begin (define maior5 (lambda (n) (if (lt? 5 n) (cons n '(7 8 9 10)) '(7 8 9 10) ) ) ) (maior5 6) )"
 
-3.3 SaÌda:
+3.3 Sa√≠da:
 (6 7 8 9 10)
 [("maior5",lambda ((n) (if (lt? 5 n) (cons n (quote (7 8 9 10))) (quote (7 8 9 10)))))]
 
-Obs.: substituindo 6 por 3, por exemplo, a saÌda retorna a lista antiga sem incluir o n˙mero 3.
+Obs.: substituindo 6 por 3, por exemplo, a sa√≠da retorna a lista antiga sem incluir o n√∫mero 3.
 
 
 
@@ -133,7 +133,7 @@ Obs.: substituindo 6 por 3, por exemplo, a saÌda retorna a lista antiga sem incl
 4.1 Estrutura:
 
 (begin
-    (define x 00)
+    (define x 10)
     (comment divisao por dois alterando variavel global)
     (define f
         (lambda (x)
@@ -146,9 +146,9 @@ Obs.: substituindo 6 por 3, por exemplo, a saÌda retorna a lista antiga sem incl
 
 4.2 Teste:
 
-runhaskell SSInterpreter.hs "(begin (define x 0) (comment divisao por dois alterando variavel global) (define f (lambda (x) (set! x (/ x 2)))) (comment a funcao abaixo deve retornar 4 e nao 5) (f 8))"
+runhaskell SSInterpreter.hs "(begin (define x 10) (comment divisao por dois alterando variavel global) (define f (lambda (x) (set! x (/ x 2)))) (comment a funcao abaixo deve retornar 4 e nao 5) (f 8))"
 
-4.3 SaÌda:
+4.3 Sa√≠da:
 
 4
 [("f",lambda ((x) (set! x (/ x 2)))),("x",4)]
@@ -196,7 +196,7 @@ runhaskell SSInterpreter.hs "(begin (define x 0) (comment divisao por dois alter
 
 runhaskell SSInterpreter.hs "(begin (define partition (lambda (compare l1) (if (eqv? l1 '()) '() (if (compare (car l1)) (cons (car l1) (partition compare (cdr l1))) (partition compare (cdr l1)))))) (define quicksort (lambda (l1) (if (eqv? l1 '()) '() (let ((pivot (car l1))) (append (append (quicksort (partition (lambda (x) (lt? x pivot)) l1)) (partition (lambda (x) ( eqv? x pivot)) l1)) (quicksort (partition (lambda (x) (lt? pivot x)) l1))))))) (quicksort '(15 2 5 11 4 1 12 14 9 8 13 3 6 7 10)))"
 
-5.3 SaÌda:
+5.3 Sa√≠da:
 
 (1 2 3 4 5 6 7 8 9 10 11 12 13 14 15)
 [("partition",lambda ((compare l1) (if (eqv? l1 (quote ())) (quote ()) (if (comp
@@ -234,14 +234,14 @@ dr l1)))))),("quicksort",lambda ((l1) (if (eqv? l1 (quote ())) (quote ()) (let (
 
 runhaskell SSInterpreter.hs "(begin (define mdc (lambda (a b) (if (eqv? a 0) b (if (eqv? b 0) a (if (lt? b a) (mdc (- a b) b) (mdc a (- b a)) ))))) (mdc 18 24))"
 
-6.3 SaÌda:
+6.3 Sa√≠da:
 
 6
 [("mdc",lambda ((a b) (if (eqv? a 0) b (if (eqv? b 0) a (if (lt? b a) (mdc (- a b) b) (mdc a (- b a)))))))]
 
 
 
-7. PotÍncia
+7. Pot√™ncia
 
 7.1 Estrutura:
 
@@ -264,7 +264,7 @@ runhaskell SSInterpreter.hs "(begin (define mdc (lambda (a b) (if (eqv? a 0) b (
 
 runhaskell SSInterpreter.hs "(begin (define pow (lambda (a b) (if (eqv? b 0) 1 (if (eqv? b 1) a (* a (pow a (- b 1))) ) ) ) ) (pow 2 5) )"
 
-7.3 SaÌda:
+7.3 Sa√≠da:
 
 32
 [("pow",lambda ((a b) (if (eqv? b 0) 1 (if (eqv? b 1) a (* a (pow a (- b 1)))))))]
@@ -289,15 +289,15 @@ runhaskell SSInterpreter.hs "(begin (define pow (lambda (a b) (if (eqv? b 0) 1 (
 
 8.2 Teste:
 
-runhaskell SSInterpreter.hs "(begin (comment funcao fatorial) (define fat (lambda (n) (if (eqv? n 0) 1 (* n (fat (- n 1))) ) ) ) (fat 4) )"
+runhaskell SSInterpreter.hs "(begin (comment funcao fatorial) (define fat (lambda (n) (if (eqv? n 0) 1 (* n (fat (- n 1))) ) ) ) (fat 9) )"
 
-8.3 SaÌda:
+8.3 Sa√≠da:
 
 24
 [("fat",lambda ((n) (if (eqv? n 0) 1 (* n (fat (- n 1))))))]
 
 
-9. Divis„o sucessiva de porcentagem
+9. Divis√£o sucessiva de porcentagem
 
 9.1 Estrutura:
 
@@ -321,7 +321,7 @@ runhaskell SSInterpreter.hs "(begin (comment funcao fatorial) (define fat (lambd
 
 runhaskell SSInterpreter.hs "(begin (let ((i 100)) (define divisaoSucessiva (make-closure (lambda (y) like (begin (set! i (/ i y)) i) ) ) ) ) (define a (divisaoSucessiva 2)) (define b (divisaoSucessiva 5)) (comment quanto sobra se tirar o valor b de a) (- a b) )"
 
-9.3 SaÌda:
+9.3 Sa√≠da:
 
 40
 [("*",<native procedure>),("+",<native procedure>),("-",<native procedure>),("/"
@@ -356,7 +356,7 @@ re>)]
 
 runhaskell SSInterpreter.hs "(begin (define cont 2) (define primo (lambda (n) (if (lt? n (* cont cont)) #t (if (eqv? (mod n cont) 0) #f (begin (set! cont (+ cont 1)) (primo n) ))))) (primo 17))"
 
-10.3 SaÌda:
+10.3 Sa√≠da:
 
 #t
 [("cont",5),("primo",lambda ((n) (if (lt? n (* cont cont)) #t (if (eqv? (mod n c
